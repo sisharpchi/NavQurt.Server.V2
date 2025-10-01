@@ -1,10 +1,17 @@
-﻿namespace NavQurt.Server.App
+using NavQurt.Server.App.Views;
+
+namespace NavQurt.Server.App;
+
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+
+        Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
+        Routing.RegisterRoute(nameof(ConfirmCodePage), typeof(ConfirmCodePage));
+        Routing.RegisterRoute(nameof(AdminPage), typeof(AdminPage));
+        Routing.RegisterRoute(nameof(WelcomePage), typeof(WelcomePage));
+        Routing.RegisterRoute(nameof(RoleManagementPage), typeof(RoleManagementPage));
     }
 }

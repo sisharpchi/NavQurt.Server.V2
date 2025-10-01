@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NavQurt.Server.App.Views.ConfirmCodePage"
+             Title="Confirm Code">
+    <VerticalStackLayout Padding="24" Spacing="16">
+        <Label Text="Enter the verification code sent to your email." />
+
+        <Entry Placeholder="Verification code"
+               Text="{Binding Code}"
+               Keyboard="Number"
+               ClearButtonVisibility="WhileEditing" />
+
+        <Label Text="{Binding ErrorMessage}" TextColor="Red" IsVisible="{Binding HasError}" />
+
+        <Button Text="Confirm"
+                Command="{Binding ConfirmCodeCommand}"
+                IsEnabled="{Binding IsNotBusy}" />
+    </VerticalStackLayout>
+</ContentPage>

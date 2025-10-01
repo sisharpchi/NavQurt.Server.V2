@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NavQurt.Server.App.Views.AdminPage"
+             Title="Admin">
+    <VerticalStackLayout Padding="16" Spacing="12">
+        <Label Text="Admin tools" FontSize="24" />
+
+        <Entry Placeholder="Role" Text="{Binding RoleFilter}" />
+        <HorizontalStackLayout Spacing="12">
+            <Button Text="Load users" Command="{Binding LoadUsersCommand}" IsEnabled="{Binding IsNotBusy}" />
+            <Button Text="View roles" Command="{Binding NavigateToRolesCommand}" />
+        </HorizontalStackLayout>
+
+        <Label Text="{Binding StatusMessage}" IsVisible="{Binding HasStatus}" />
+        <Label Text="{Binding ErrorMessage}" TextColor="Red" IsVisible="{Binding HasError}" />
+
+        <CollectionView ItemsSource="{Binding Users}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="12" Margin="0,6" BorderColor="{DynamicResource Primary}">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding UserName}" FontAttributes="Bold" />
+                            <Label Text="{Binding Email}" />
+                            <Label Text="Role: {Binding Role}" />
+
+                            <Entry Placeholder="New role"
+                                   Text="{Binding NewRole}"
+                                   ClearButtonVisibility="WhileEditing" />
+
+                            <HorizontalStackLayout Spacing="12">
+                                <Button Text="Update role"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.UpdateUserRoleCommand}"
+                                        CommandParameter="{Binding .}" />
+                                <Button Text="Delete"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteUserCommand}"
+                                        CommandParameter="{Binding .}"
+                                        TextColor="Red" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

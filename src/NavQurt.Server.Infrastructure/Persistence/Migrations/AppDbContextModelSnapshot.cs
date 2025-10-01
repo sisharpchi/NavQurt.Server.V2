@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NavQurt.Server.Infrastructure.Persistence;
 
 #nullable disable
 
@@ -21,97 +22,7 @@ namespace NavQurt.Server.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Pinterest.Domain.Entities.Comment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
-
-                    b.Property<long>("PinId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PinId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Comments", (string)null);
-                });
-
-            modelBuilder.Entity("Pinterest.Domain.Entities.Pin", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
-
-                    b.Property<long>("CreatedById")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.ToTable("Pins", (string)null);
-                });
-
-            modelBuilder.Entity("Pinterest.Domain.Entities.PinLike", b =>
-                {
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PinId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("LikedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
-
-                    b.HasKey("UserId", "PinId");
-
-                    b.HasIndex("PinId");
-
-                    b.ToTable("PinLikes", (string)null);
-                });
-
-            modelBuilder.Entity("Pinterest.Domain.Entities.RefreshToken", b =>
+            modelBuilder.Entity("NavQurt.Server.Domain.Entities.RefreshToken", b =>
                 {
                     b.Property<long>("RefreshTokenId")
                         .ValueGeneratedOnAdd()
@@ -139,7 +50,7 @@ namespace NavQurt.Server.Infrastructure.Persistence.Migrations
                     b.ToTable("RefreshTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Pinterest.Domain.Entities.User", b =>
+            modelBuilder.Entity("NavQurt.Server.Domain.Entities.User", b =>
                 {
                     b.Property<long>("UserId")
                         .ValueGeneratedOnAdd()
@@ -192,7 +103,7 @@ namespace NavQurt.Server.Infrastructure.Persistence.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("Pinterest.Domain.Entities.UserConfirme", b =>
+            modelBuilder.Entity("NavQurt.Server.Domain.Entities.UserConfirme", b =>
                 {
                     b.Property<long>("ConfirmerId")
                         .ValueGeneratedOnAdd()
@@ -229,7 +140,7 @@ namespace NavQurt.Server.Infrastructure.Persistence.Migrations
                     b.ToTable("Confirmers", (string)null);
                 });
 
-            modelBuilder.Entity("Pinterest.Domain.Entities.UserRole", b =>
+            modelBuilder.Entity("NavQurt.Server.Domain.Entities.UserRole", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -252,58 +163,9 @@ namespace NavQurt.Server.Infrastructure.Persistence.Migrations
                     b.ToTable("UserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Pinterest.Domain.Entities.Comment", b =>
+            modelBuilder.Entity("NavQurt.Server.Domain.Entities.RefreshToken", b =>
                 {
-                    b.HasOne("Pinterest.Domain.Entities.Pin", "Pin")
-                        .WithMany("Comments")
-                        .HasForeignKey("PinId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Pinterest.Domain.Entities.User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Pin");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Pinterest.Domain.Entities.Pin", b =>
-                {
-                    b.HasOne("Pinterest.Domain.Entities.User", "CreatedBy")
-                        .WithMany("Pins")
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
-                });
-
-            modelBuilder.Entity("Pinterest.Domain.Entities.PinLike", b =>
-                {
-                    b.HasOne("Pinterest.Domain.Entities.Pin", "Pin")
-                        .WithMany("Likes")
-                        .HasForeignKey("PinId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Pinterest.Domain.Entities.User", "User")
-                        .WithMany("LikedPins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Pin");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Pinterest.Domain.Entities.RefreshToken", b =>
-                {
-                    b.HasOne("Pinterest.Domain.Entities.User", "User")
+                    b.HasOne("NavQurt.Server.Domain.Entities.User", "User")
                         .WithMany("RefreshTokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -312,14 +174,14 @@ namespace NavQurt.Server.Infrastructure.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Pinterest.Domain.Entities.User", b =>
+            modelBuilder.Entity("NavQurt.Server.Domain.Entities.User", b =>
                 {
-                    b.HasOne("Pinterest.Domain.Entities.UserConfirme", "Confirmer")
+                    b.HasOne("NavQurt.Server.Domain.Entities.UserConfirme", "Confirmer")
                         .WithOne("User")
-                        .HasForeignKey("Pinterest.Domain.Entities.User", "ConfirmerId")
+                        .HasForeignKey("NavQurt.Server.Domain.Entities.User", "ConfirmerId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Pinterest.Domain.Entities.UserRole", "Role")
+                    b.HasOne("NavQurt.Server.Domain.Entities.UserRole", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -330,31 +192,18 @@ namespace NavQurt.Server.Infrastructure.Persistence.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Pinterest.Domain.Entities.Pin", b =>
+            modelBuilder.Entity("NavQurt.Server.Domain.Entities.User", b =>
                 {
-                    b.Navigation("Comments");
-
-                    b.Navigation("Likes");
-                });
-
-            modelBuilder.Entity("Pinterest.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Comments");
-
-                    b.Navigation("LikedPins");
-
-                    b.Navigation("Pins");
-
                     b.Navigation("RefreshTokens");
                 });
 
-            modelBuilder.Entity("Pinterest.Domain.Entities.UserConfirme", b =>
+            modelBuilder.Entity("NavQurt.Server.Domain.Entities.UserConfirme", b =>
                 {
                     b.Navigation("User")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Pinterest.Domain.Entities.UserRole", b =>
+            modelBuilder.Entity("NavQurt.Server.Domain.Entities.UserRole", b =>
                 {
                     b.Navigation("Users");
                 });

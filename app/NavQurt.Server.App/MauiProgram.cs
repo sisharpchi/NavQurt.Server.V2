@@ -20,12 +20,22 @@ namespace NavQurt.Server.App
 
             builder.Services.AddSingleton(sp =>
             {
-                var client = new HttpClient
+                var handler = new HttpClientHandler();
+
+#if ANDROID
+                // Android Emulator self-signed sertifikatga ishonmaydi
+                handler.ServerCertificateCustomValidationCallback =
+                    (message, cert, chain, errors) => true;
+#endif
+
+                var client = new HttpClient(handler)
                 {
                     BaseAddress = new Uri(ApiConstants.BaseUrl)
                 };
+
                 return client;
             });
+
 
             builder.Services.AddSingleton<TokenStorageService>();
             builder.Services.AddSingleton<JwtService>();

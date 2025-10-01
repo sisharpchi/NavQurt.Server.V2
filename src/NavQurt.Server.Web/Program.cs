@@ -26,14 +26,12 @@ namespace NavQurt.Server.Web
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowLocalhost5173", policy =>
+                options.AddPolicy("AllowAll", policy =>
                 {
-                    policy.WithOrigins(
-                        "http://localhost:4200",
-                        "http://localhost:5173"
-                    )
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
                 });
             });
 
@@ -48,8 +46,7 @@ namespace NavQurt.Server.Web
                 app.UseSwaggerUI();
             }
 
-            app.UseCors("AllowLocalhost5173");
-            app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors("AllowAll");
 
             app.UseHttpsRedirection();
 

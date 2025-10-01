@@ -13,5 +13,19 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(AdminPage), typeof(AdminPage));
         Routing.RegisterRoute(nameof(WelcomePage), typeof(WelcomePage));
         Routing.RegisterRoute(nameof(RoleManagementPage), typeof(RoleManagementPage));
+
+        this.Navigated += OnNavigated!;
+    }
+
+    private void OnNavigated(object sender, ShellNavigatedEventArgs e)
+    {
+        if (CurrentPage is Page page)
+        {
+            Shell.SetBackButtonBehavior(page, new BackButtonBehavior
+            {
+                IsVisible = false,
+                IsEnabled = false
+            });
+        }
     }
 }

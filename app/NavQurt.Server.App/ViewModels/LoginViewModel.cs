@@ -80,8 +80,8 @@ public class LoginViewModel : BaseViewModel
 
             var targetRoute = string.Equals(role, "SuperAdmin", StringComparison.OrdinalIgnoreCase) ||
                               string.Equals(role, "Admin", StringComparison.OrdinalIgnoreCase)
-                ? $"//{nameof(AdminPage)}"
-                : $"//{nameof(WelcomePage)}";
+                ? $"{nameof(AdminPage)}"
+                : $"{nameof(WelcomePage)}";
 
             await MainThread.InvokeOnMainThreadAsync(() => Shell.Current.GoToAsync(targetRoute)).ConfigureAwait(false);
         }

@@ -1,3 +1,4 @@
+﻿using NavQurt.Server.App.Helpers;
 using NavQurt.Server.App.Models;
 
 namespace NavQurt.Server.App.Services;
@@ -22,14 +23,19 @@ public class AuthService
             return AuthResult.FromError(error);
         }
 
-        var authResponse = await _apiClient.ReadAsAsync<AuthResponse>(response).ConfigureAwait(false);
-        if (authResponse is null || string.IsNullOrWhiteSpace(authResponse.AccessToken))
+        var apiResponse = await _apiClient.ReadAsAsync<ApiResponse<AuthResponse>>(response).ConfigureAwait(false);
+
+        if (apiResponse?.Data is null || string.IsNullOrWhiteSpace(apiResponse.Data.AccessToken))
         {
             return AuthResult.FromError("Authentication response was empty.");
         }
 
-        await _tokenStorage.SaveTokensAsync(authResponse.AccessToken, authResponse.RefreshToken).ConfigureAwait(false);
-        return AuthResult.FromSuccess(authResponse.AccessToken, authResponse.RefreshToken, authResponse.Role);
+        var jwtService = ServiceHelper.GetService<JwtService>();
+        var role = jwtService.GetRoleFromToken(apiResponse.Data.AccessToken);
+
+        await _tokenStorage.SaveTokensAsync(apiResponse.Data.AccessToken, apiResponse.Data.RefreshToken).ConfigureAwait(false);
+
+        return AuthResult.FromSuccess(apiResponse.Data.AccessToken, apiResponse.Data.RefreshToken, role);
     }
 
     public async Task<ServiceResult> SignUpAsync(SignUpRequest request)

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using NavQurt.Server.Application.Services;
+using NavQurt.Server.Application.Services.Contracts;
 
 namespace Pinterest.Api.Endpoints;
 

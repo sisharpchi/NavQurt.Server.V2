@@ -20,4 +20,10 @@
 		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Dto\ProductCategory\" />
+	  <Folder Include="Dto\Product\" />
+	  <Folder Include="Dto\Warehouse\" />
+	</ItemGroup>
 </Project>

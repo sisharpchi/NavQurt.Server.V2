@@ -1,4 +1,4 @@
-﻿namespace NavQurt.Server.Application.Services;
+﻿namespace NavQurt.Server.Application.Services.Contracts;
 
 public interface IUserService
 {

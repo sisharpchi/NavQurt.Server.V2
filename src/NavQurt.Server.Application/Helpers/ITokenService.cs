@@ -1,4 +1,4 @@
-﻿using NavQurt.Server.Application.Dto_s;
+﻿using NavQurt.Server.Application.Dto.Auth;
 using System.Security.Claims;
 
 namespace NavQurt.Server.Application.Helpers;

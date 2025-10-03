@@ -1,8 +1,9 @@
-﻿using NavQurt.Server.Application.Dto_s;
+﻿using NavQurt.Server.Application.Dto.Auth;
 using NavQurt.Server.Application.Interfaces;
+using NavQurt.Server.Application.Services.Contracts;
 using NavQurt.Server.Domain.Entities;
 
-namespace NavQurt.Server.Application.Services;
+namespace NavQurt.Server.Application.Services.Implementations;
 
 public class RoleService(IRoleRepository _roleRepo) : IRoleService
 {

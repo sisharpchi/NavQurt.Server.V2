@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NavQurt.Server.Application.Services;
+using NavQurt.Server.Application.Services.Contracts;
 using System.Security.Claims;
 
 namespace NavQurt.Server.Web.Endpoints;

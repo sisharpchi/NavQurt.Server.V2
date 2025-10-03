@@ -1,4 +1,4 @@
-﻿namespace NavQurt.Server.Application.Dto_s;
+﻿namespace NavQurt.Server.Application.Dto.Auth;
 
 public class RoleGetDto
 {

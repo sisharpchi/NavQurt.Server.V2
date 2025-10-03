@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using NavQurt.Server.Application.Dto_s;
+using NavQurt.Server.Application.Dto.Auth;
 
 namespace NavQurt.Server.Application.Validators;
 

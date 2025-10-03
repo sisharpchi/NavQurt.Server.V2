@@ -9,7 +9,9 @@ public class AppDbContext : DbContext
     public DbSet<UserRole> UserRoles { get; set; }
     public DbSet<UserConfirme> Confirmers { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
-
+    public DbSet<Product> Products { get; set; }
+    public DbSet<ProductCategory> ProductCategories { get; set; }
+    public DbSet<Warehouse> Warehouse { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {

@@ -1,5 +1,5 @@
-﻿using NavQurt.Server.Application.Dto_s;
-using NavQurt.Server.Application.Services;
+﻿using NavQurt.Server.Application.Dto.Auth;
+using NavQurt.Server.Application.Services.Contracts;
 
 namespace NavQurt.Server.Web.Endpoints;
 

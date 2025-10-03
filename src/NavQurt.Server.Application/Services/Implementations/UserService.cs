@@ -1,7 +1,8 @@
 ﻿using NavQurt.Server.Application.Interfaces;
+using NavQurt.Server.Application.Services.Contracts;
 using NavQurt.Server.Core.Errors;
 
-namespace NavQurt.Server.Application.Services;
+namespace NavQurt.Server.Application.Services.Implementations;
 
 public class UserService(IUserRepository _userRepository) : IUserService
 {

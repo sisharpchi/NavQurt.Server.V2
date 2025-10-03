@@ -1,10 +1,11 @@
 ﻿using FluentEmail.Core;
 using FluentEmail.Smtp;
 using FluentValidation;
-using NavQurt.Server.Application.Dto_s;
+using NavQurt.Server.Application.Dto.Auth;
 using NavQurt.Server.Application.Helpers;
 using NavQurt.Server.Application.Helpers.Security;
 using NavQurt.Server.Application.Interfaces;
+using NavQurt.Server.Application.Services.Contracts;
 using NavQurt.Server.Application.Settings;
 using NavQurt.Server.Core.Errors;
 using NavQurt.Server.Domain.Entities;
@@ -12,7 +13,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Claims;
 
-namespace NavQurt.Server.Application.Services;
+namespace NavQurt.Server.Application.Services.Implementations;
 
 public class AuthService(IRoleRepository _roleRepo, IValidator<UserCreateDto> _validator,
     IUserRepository _userRepo, ITokenService _tokenService,

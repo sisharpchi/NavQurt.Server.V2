@@ -1,5 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using NavQurt.Server.Application.Dto_s;
+using NavQurt.Server.Application.Dto.Auth;
 using NavQurt.Server.Application.Settings;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
